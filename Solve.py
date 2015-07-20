@@ -22,10 +22,10 @@ class Solve:
     #   - are there already combinations in a box/line that make the whole thing invalid?
     def isValidSudoku(self,sudokuIn):
         if self.hasRightForm(sudokuIn):
-            # lines getting checked
             i = 0
             x = []
             y = []
+            z = ["","","","","","","","",""]
             while i < 9:
                 j = 0
                 while j < 9:
@@ -33,20 +33,31 @@ class Solve:
                         x = sudokuIn[i][j]
                     elif not sudokuIn[i][j] == ' ':
                         raise ValueError("there are not allowed characters in the input or too many of one")
-                        return False
                     if sudokuIn[j][i] in self.num and not sudokuIn[j][i] in y:
                         y = sudokuIn[j][i]
                     elif not sudokuIn[j][i] == ' ':
                         raise ValueError("there are not allowed characters in the input or too many of one")
-                        return False
+                    a = 0
+                    if i < 3:
+                        a = 0
+                    elif i < 6:
+                        a = 1
+                    else:
+                        a = 2
+                    if j < 3:
+                        a += 0
+                    elif j < 6:
+                        a += 3
+                    else:
+                        a += 6
+                    if sudokuIn[i][j] != ' ' and not sudokuIn[i][j] in z[a]:
+                        z[a] += sudokuIn[i][j]
+                    else:
+                        raise ValueError("in a block there is one number multiple times")
                     j += 1
                 i += 1
-            # blocks getting checked
-
-            # TODO
-
+            return True
         raise ValueError("the form is not right. this error should not appear.")
-        return False
 
 
     # checks if the sudoku is 9x9 (maybe later I will include other sizes? we'll see)
