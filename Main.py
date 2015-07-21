@@ -4,4 +4,4 @@ __author__ = 'twi'
 
 sudoku = []
 
-solver = Solve.__init__(sudoku)
+solver = Solve.Solve(sudoku)
