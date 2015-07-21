@@ -14,7 +14,10 @@ class Solve:
     num = '0123456789'
 
     def __init__(self,sudokuIn):
-        self.sudokuIn = sudokuIn
+        if self.isValidSudoku(sudokuIn):
+            self.sudokuIn = sudokuIn
+        else:
+            raise ValueError("not a valid input")
 
     # checks if the sudoku is valid - meaning:
     #   - are there the right characters?
@@ -71,3 +74,9 @@ class Solve:
         if count != 9:
             raise ValueError("there are too many or too few lines in this sudoku")
         return True
+
+
+    # stupidiest way of doing it =D
+    # gives a list of all the possible solutions
+    def solve(self):
+        return
