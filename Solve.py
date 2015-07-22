@@ -8,6 +8,11 @@ class Solve:
     it's an array. with nine strings in it. or arrays. it does not really matter.
 
     each of the strings can contain the numbers 0-9 or ' ' for not yet found numbers
+    empty or other characters are not valid
+
+    s1 = ["         ","         ","         ","         ","         ","         ","         ","         ","         "]
+    s2 = [[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ']]
+    are valid inputs for an empty sudoku.
 
     """
 
@@ -16,6 +21,7 @@ class Solve:
     def __init__(self,sudokuIn):
         if self.isValidSudoku(sudokuIn):
             self.sudokuIn = sudokuIn
+            print("gilt")
         else:
             raise ValueError("not a valid input")
 
@@ -26,16 +32,16 @@ class Solve:
     def isValidSudoku(self,sudokuIn):
         if self.hasRightForm(sudokuIn):
             i = 0
-            x = []
-            y = []
             z = ["","","","","","","","",""]
             while i < 9:
+                x = []
+                y = []
                 j = 0
                 while j < 9:
                     if sudokuIn[i][j] in self.num and not sudokuIn[i][j] in x:
                         x = sudokuIn[i][j]
                     elif not sudokuIn[i][j] == ' ':
-                        raise ValueError("there are not allowed characters in the input or too many of one")
+                         raise ValueError("there are not allowed characters in the input or too many of one")
                     if sudokuIn[j][i] in self.num and not sudokuIn[j][i] in y:
                         y = sudokuIn[j][i]
                     elif not sudokuIn[j][i] == ' ':
@@ -55,7 +61,7 @@ class Solve:
                         a += 6
                     if sudokuIn[i][j] != ' ' and not sudokuIn[i][j] in z[a]:
                         z[a] += sudokuIn[i][j]
-                    else:
+                    elif sudokuIn[i][j] != ' ':
                         raise ValueError("in a block there is one number multiple times")
                     j += 1
                 i += 1
