@@ -47,7 +47,19 @@ class Create:
         sudokuCopy = sudoku[:]
         notAllowedCopy = notAllowed[:]
 
-        # TODO: UPDATE notAllowed
+        # TRY DOING THINGS LIKE UPDATING NOT ALLOWED : START
+
+        if y < 9:
+            for i in range(y+1,9):
+                notAllowedCopy[x][i] = "{0}{1}".format(notAllowed[x][i],num)
+
+        if x < 9:
+            for i in range(x+1,9):
+                notAllowedCopy[i][y] = "{0}{1}".format(notAllowed[i][y],num)
+
+        # TODO: BLOCKS ARE MISSING!!
+
+        # TRY DOING THINGS LIKE UPDATING NOT ALLOWED : END
 
         sudokuCopy[x][y] = num
         if y < 8:
