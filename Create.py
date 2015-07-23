@@ -22,9 +22,11 @@ class Create:
     # if they are completely the same, True, else False is
     def equals(self,s1,s2):
         x = 0
-        y = 0
         while x < 9:
+            y = 0
             while y < 9:
-
+                if s1[x][y] != s2[x][y]:
+                    return False
                 y += 1
             x += 1
+        return True
