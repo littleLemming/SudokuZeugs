@@ -1,7 +1,7 @@
 __author__ = 'twi'
 
-class Solve:
 
+class Solve:
     """
     form of a valid sudoku-input:
 
@@ -18,25 +18,24 @@ class Solve:
 
     num = '0123456789'
 
-    def __init__(self,sudokuIn):
+    def __init__(self, sudokuIn):
         if self.isValidSudoku(sudokuIn):
             self.sudokuIn = sudokuIn
             self.x = []
             self.y = []
             self.z = []
+            self.solutions = []
             self.setUp()
-            print("gilt")
         else:
             raise ValueError("not a valid input")
 
-    def anotherSudoku(self,sudokuIn):
+    def anotherSudoku(self, sudokuIn):
         if self.isValidSudoku(sudokuIn):
             self.sudokuIn = sudokuIn
             self.x = []
             self.y = []
             self.z = []
             self.setUp()
-            print("gilt")
         else:
             raise ValueError("not a valid input")
 
@@ -44,19 +43,24 @@ class Solve:
     #   - are there the right characters?
     #   - is it the right size?
     #   - are there already combinations in a box/line that make the whole thing invalid?
-    def isValidSudoku(self,sudokuIn):
+    def isValidSudoku(self, sudokuIn):
         if self.hasRightForm(sudokuIn):
             i = 0
-            z = ["","","","","","","","",""]
+            z = ["", "", "", "", "", "", "", "", ""]
+            ##################################
+            # MOVED - were inside of i-while #
+            #  if errors occure - move back  #
+            ##################################
+            x = []
+            y = []
+            ##################################
             while i < 9:
-                x = []
-                y = []
                 j = 0
                 while j < 9:
                     if sudokuIn[i][j] in self.num and not sudokuIn[i][j] in x:
                         x = sudokuIn[i][j]
                     elif not sudokuIn[i][j] == ' ':
-                         raise ValueError("there are not allowed characters in the input or too many of one")
+                        raise ValueError("there are not allowed characters in the input or too many of one")
                     if sudokuIn[j][i] in self.num and not sudokuIn[j][i] in y:
                         y = sudokuIn[j][i]
                     elif not sudokuIn[j][i] == ' ':
@@ -83,9 +87,8 @@ class Solve:
             return True
         raise ValueError("the form is not right. this error should not appear.")
 
-
     # checks if the sudoku is 9x9 (maybe later I will include other sizes? we'll see)
-    def hasRightForm(self,sudokuIn):
+    def hasRightForm(self, sudokuIn):
         count = 0
         for i in sudokuIn:
             if len(i) == 9:
@@ -97,12 +100,34 @@ class Solve:
         return True
 
     def setUp(self):
-        return
+        i = 0
+        j = 0
+        while i < 9:
+            while j < 9:
+                self.x[i] = "{0}{1}".format(self.x[i], self.sudokuIn[i][j])
+                self.y[i] = "{0}{1}".format(self.y[i], self.sudokuIn[j][i])
+                a = 0
+                if i < 3:
+                    a = 0
+                elif i < 6:
+                    a = 1
+                else:
+                    a = 2
+                if j < 3:
+                    a += 0
+                elif j < 6:
+                    a += 3
+                else:
+                    a += 6
+                self.z[a] += self.sudokuIn[i][j]
+                j += 1
+            i += 1
 
-    # stupidiest way of doing it =D
-    # gives a list of all the possible solutions
-    # x ... zeilen
-    # y ... spalten
-    # z ... kasterln
-    def solve(self,sudoku,x,y,z,solutions):
-        return
+
+# stupidiest way of doing it =D
+# gives a list of all the possible solutions
+# x ... zeilen
+# y ... spalten
+# z ... kasterln
+def solve(self, sudoku, x, y, z):
+    return
