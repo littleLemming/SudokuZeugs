@@ -21,6 +21,21 @@ class Solve:
     def __init__(self,sudokuIn):
         if self.isValidSudoku(sudokuIn):
             self.sudokuIn = sudokuIn
+            self.x = []
+            self.y = []
+            self.z = []
+            self.setUp()
+            print("gilt")
+        else:
+            raise ValueError("not a valid input")
+
+    def anotherSudoku(self,sudokuIn):
+        if self.isValidSudoku(sudokuIn):
+            self.sudokuIn = sudokuIn
+            self.x = []
+            self.y = []
+            self.z = []
+            self.setUp()
             print("gilt")
         else:
             raise ValueError("not a valid input")
@@ -81,8 +96,13 @@ class Solve:
             raise ValueError("there are too many or too few lines in this sudoku")
         return True
 
+    def setUp(self):
+        return
 
     # stupidiest way of doing it =D
     # gives a list of all the possible solutions
-    def solve(self):
+    # x ... zeilen
+    # y ... spalten
+    # z ... kasterln
+    def solve(self,sudoku,x,y,z,solutions):
         return
