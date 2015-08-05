@@ -19,23 +19,30 @@ class Solve:
     num = '0123456789'
 
     def __init__(self, sudokuIn):
-        if self.isValidSudoku(sudokuIn):
-            self.sudokuIn = sudokuIn
+        if self.hasRightForm(sudokuIn):
             self.x = []
             self.y = []
             self.z = []
             self.solutions = []
             self.setUp()
+            if self.isValidSudoku(sudokuIn):
+                self.sudokuIn = sudokuIn
+            else:
+                raise ValueError("not a valid input")
         else:
             raise ValueError("not a valid input")
 
     def anotherSudoku(self, sudokuIn):
-        if self.isValidSudoku(sudokuIn):
-            self.sudokuIn = sudokuIn
+        if self.hasRightForm(sudokuIn):
             self.x = []
             self.y = []
             self.z = []
+            self.solutions = []
             self.setUp()
+            if self.isValidSudoku(sudokuIn):
+                self.sudokuIn = sudokuIn
+            else:
+                raise ValueError("not a valid input")
         else:
             raise ValueError("not a valid input")
 
@@ -47,14 +54,9 @@ class Solve:
         if self.hasRightForm(sudokuIn):
             i = 0
             z = ["", "", "", "", "", "", "", "", ""]
-            ##################################
-            # MOVED - were inside of i-while #
-            #  if errors occure - move back  #
-            ##################################
-            x = []
-            y = []
-            ##################################
             while i < 9:
+                x = []
+                y = []
                 j = 0
                 while j < 9:
                     if sudokuIn[i][j] in self.num and not sudokuIn[i][j] in x:
@@ -99,13 +101,13 @@ class Solve:
             raise ValueError("there are too many or too few lines in this sudoku")
         return True
 
-    def setUp(self):
+    def setUp(self,sudokuIn):
         i = 0
         j = 0
         while i < 9:
             while j < 9:
-                self.x[i] = "{0}{1}".format(self.x[i], self.sudokuIn[i][j])
-                self.y[i] = "{0}{1}".format(self.y[i], self.sudokuIn[j][i])
+                self.x[i] = "{0}{1}".format(self.x[i], sudokuIn[i][j])
+                self.y[i] = "{0}{1}".format(self.y[i], sudokuIn[j][i])
                 a = 0
                 if i < 3:
                     a = 0
@@ -119,7 +121,7 @@ class Solve:
                     a += 3
                 else:
                     a += 6
-                self.z[a] += self.sudokuIn[i][j]
+                self.z[a] += sudokuIn[i][j]
                 j += 1
             i += 1
 
