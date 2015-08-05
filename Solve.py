@@ -2,19 +2,6 @@ __author__ = 'twi'
 
 
 class Solve:
-    """
-    form of a valid sudoku-input:
-
-    it's an array. with nine strings in it. or arrays. it does not really matter.
-
-    each of the strings can contain the numbers 0-9 or ' ' for not yet found numbers
-    empty or other characters are not valid
-
-    s1 = ["         ","         ","         ","         ","         ","         ","         ","         ","         "]
-    s2 = [[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' ',' ']]
-    are valid inputs for an empty sudoku.
-
-    """
 
     num = '0123456789'
 
@@ -46,10 +33,6 @@ class Solve:
         else:
             raise ValueError("not a valid input")
 
-    # checks if the sudoku is valid - meaning:
-    #   - are there the right characters?
-    #   - is it the right size?
-    #   - are there already combinations in a box/line that make the whole thing invalid?
     def isValidSudoku(self, sudokuIn):
         if self.hasRightForm(sudokuIn):
             i = 0
@@ -89,7 +72,6 @@ class Solve:
             return True
         raise ValueError("the form is not right. this error should not appear.")
 
-    # checks if the sudoku is 9x9 (maybe later I will include other sizes? we'll see)
     def hasRightForm(self, sudokuIn):
         count = 0
         for i in sudokuIn:
@@ -124,12 +106,3 @@ class Solve:
                 self.z[a] += sudokuIn[i][j]
                 j += 1
             i += 1
-
-
-# stupidiest way of doing it =D
-# gives a list of all the possible solutions
-# x ... zeilen
-# y ... spalten
-# z ... kasterln
-def solve(self, sudoku, x, y, z):
-    return
