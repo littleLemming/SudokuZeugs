@@ -7,8 +7,6 @@ class Create:
         self.writeToFile = writeToFile
         self.file = file
 
-
-
     def sudokuExists(self,sudoku):
         for i in self.sudokus:
             if self.equals(i,sudoku):

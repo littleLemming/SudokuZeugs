@@ -21,14 +21,22 @@ class Solve:
 
     def anotherSudoku(self, sudokuIn):
         if self.hasRightForm(sudokuIn):
+            oldX = self.x
             self.x = []
+            oldY = self.y
             self.y = []
+            oldZ = self.z
             self.z = []
+            oldSolutions = self.solutions
             self.solutions = []
             self.setUp()
             if self.isValidSudoku(sudokuIn):
                 self.sudokuIn = sudokuIn
             else:
+                self.x = oldX
+                self.y = oldY
+                self.z = oldZ
+                self.solutions = oldSolutions
                 raise ValueError("not a valid input")
         else:
             raise ValueError("not a valid input")
