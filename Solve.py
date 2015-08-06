@@ -3,15 +3,26 @@ __author__ = 'twi'
 
 class Solve:
 
+    #########
+    #   z   #
+    #########
+    # 0 3 6 #
+    # 1 4 7 #
+    # 2 5 8 #
+    #########
+
     num = '0123456789'
 
     def __init__(self, sudokuIn):
         if self.hasRightForm(sudokuIn):
-            self.x = []
-            self.y = []
-            self.z = []
+            self.x = ["","","","","","","","",""]
+            self.y = ["","","","","","","","",""]
+            self.z = ["","","","","","","","",""]
             self.solutions = []
-            self.setUp()
+            self.setUp(sudokuIn)
+            print(self.x)
+            print(self.y)
+            print(self.z)
             if self.isValidSudoku(sudokuIn):
                 self.sudokuIn = sudokuIn
             else:
@@ -22,14 +33,14 @@ class Solve:
     def anotherSudoku(self, sudokuIn):
         if self.hasRightForm(sudokuIn):
             oldX = self.x
-            self.x = []
+            self.x = ["","","","","","","","",""]
             oldY = self.y
-            self.y = []
+            self.y = ["","","","","","","","",""]
             oldZ = self.z
-            self.z = []
+            self.z = ["","","","","","","","",""]
             oldSolutions = self.solutions
             self.solutions = []
-            self.setUp()
+            self.setUp(sudokuIn)
             if self.isValidSudoku(sudokuIn):
                 self.sudokuIn = sudokuIn
             else:
@@ -45,27 +56,28 @@ class Solve:
         if self.hasRightForm(sudokuIn):
             i = 0
             while i < 9:
-                i += 1
                 j = 0
                 while j < 9:
-                    if j < len(self.x[i]):
+                    if j < len(self.x[i]) and self.x[i][j] != ' ':
                         if self.x[i][j] not in self.num:
                             raise ValueError("a not allowed character is in the input: {0}".format(self.x[i][j]))
                         if j+1 < len(self.x[i]):
                             if self.x[i][j] in self.x[i][j+1:]:
                                 raise ValueError("{0} appears more than once in the input".format(self.x[i][j]))
-                    if j < len(self.y[i]):
+                    if j < len(self.y[i]) and self.y[i][j] != ' ':
                         if self.y[i][j] not in self.num:
                             raise ValueError("a not allowed character is in the input: {0}".format(self.y[i][j]))
                         if j+1 < len(self.y[i]):
                             if self.y[i][j] in self.y[i][j+1:]:
                                 raise ValueError("{0} appears more than once in the input".format(self.y[i][j]))
-                    if j < len(self.z[i]):
+                    if j < len(self.z[i]) and self.z[i][j] != ' ':
                         if self.z[i][j] not in self.num:
                             raise ValueError("a not allowed character is in the input: {0}".format(self.z[i][j]))
                         if j+1 < len(self.z[i]):
                             if self.z[i][j] in self.z[i][j+1:]:
                                 raise ValueError("{0} appears more than once in the input".format(self.z[i][j]))
+                    j += 1
+                i += 1
             return True
         raise ValueError("the form is not right. this error should not appear.")
 
@@ -82,24 +94,27 @@ class Solve:
 
     def setUp(self,sudokuIn):
         i = 0
-        j = 0
         while i < 9:
+            j = 0
             while j < 9:
-                self.x[i] = "{0}{1}".format(self.x[i], sudokuIn[i][j])
-                self.y[i] = "{0}{1}".format(self.y[i], sudokuIn[j][i])
-                a = 0
-                if i < 3:
+                if sudokuIn[i][j] != ' ':
+                    self.x[i] = "{0}{1}".format(self.x[i], sudokuIn[i][j])
+                if sudokuIn[j][i] != ' ':
+                    self.y[i] = "{0}{1}".format(self.y[i], sudokuIn[j][i])
+                if sudokuIn[i][j] != ' ':
                     a = 0
-                elif i < 6:
-                    a = 1
-                else:
-                    a = 2
-                if j < 3:
-                    a += 0
-                elif j < 6:
-                    a += 3
-                else:
-                    a += 6
-                self.z[a] += sudokuIn[i][j]
+                    if i < 3:
+                        a = 0
+                    elif i < 6:
+                        a = 1
+                    else:
+                        a = 2
+                    if j < 3:
+                        a += 0
+                    elif j < 6:
+                        a += 3
+                    else:
+                        a += 6
+                    self.z[a] =  "{0}{1}".format(self.z[a], sudokuIn[i][j])
                 j += 1
             i += 1
