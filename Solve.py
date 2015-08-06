@@ -44,39 +44,28 @@ class Solve:
     def isValidSudoku(self, sudokuIn):
         if self.hasRightForm(sudokuIn):
             i = 0
-            z = ["", "", "", "", "", "", "", "", ""]
             while i < 9:
-                x = []
-                y = []
+                i += 1
                 j = 0
                 while j < 9:
-                    if sudokuIn[i][j] in self.num and not sudokuIn[i][j] in x:
-                        x = sudokuIn[i][j]
-                    elif not sudokuIn[i][j] == ' ':
-                        raise ValueError("there are not allowed characters in the input or too many of one")
-                    if sudokuIn[j][i] in self.num and not sudokuIn[j][i] in y:
-                        y = sudokuIn[j][i]
-                    elif not sudokuIn[j][i] == ' ':
-                        raise ValueError("there are not allowed characters in the input or too many of one")
-                    a = 0
-                    if i < 3:
-                        a = 0
-                    elif i < 6:
-                        a = 1
-                    else:
-                        a = 2
-                    if j < 3:
-                        a += 0
-                    elif j < 6:
-                        a += 3
-                    else:
-                        a += 6
-                    if sudokuIn[i][j] != ' ' and not sudokuIn[i][j] in z[a]:
-                        z[a] += sudokuIn[i][j]
-                    elif sudokuIn[i][j] != ' ':
-                        raise ValueError("in a block there is one number multiple times")
-                    j += 1
-                i += 1
+                    if j < len(self.x[i]):
+                        if self.x[i][j] not in self.num:
+                            raise ValueError("a not allowed character is in the input: {0}".format(self.x[i][j]))
+                        if j+1 < len(self.x[i]):
+                            if self.x[i][j] in self.x[i][j+1:]:
+                                raise ValueError("{0} appears more than once in the input".format(self.x[i][j]))
+                    if j < len(self.y[i]):
+                        if self.y[i][j] not in self.num:
+                            raise ValueError("a not allowed character is in the input: {0}".format(self.y[i][j]))
+                        if j+1 < len(self.y[i]):
+                            if self.y[i][j] in self.y[i][j+1:]:
+                                raise ValueError("{0} appears more than once in the input".format(self.y[i][j]))
+                    if j < len(self.z[i]):
+                        if self.z[i][j] not in self.num:
+                            raise ValueError("a not allowed character is in the input: {0}".format(self.z[i][j]))
+                        if j+1 < len(self.z[i]):
+                            if self.z[i][j] in self.z[i][j+1:]:
+                                raise ValueError("{0} appears more than once in the input".format(self.z[i][j]))
             return True
         raise ValueError("the form is not right. this error should not appear.")
 
