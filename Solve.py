@@ -20,11 +20,9 @@ class Solve:
             self.z = ["","","","","","","","",""]
             self.solutions = []
             self.setUp(sudokuIn)
-            print(self.x)
-            print(self.y)
-            print(self.z)
             if self.isValidSudoku(sudokuIn):
                 self.sudokuIn = sudokuIn
+                self.solve(sudokuIn,self.x,self.y,self.z,0,0)
             else:
                 raise ValueError("not a valid input")
         else:
@@ -43,6 +41,7 @@ class Solve:
             self.setUp(sudokuIn)
             if self.isValidSudoku(sudokuIn):
                 self.sudokuIn = sudokuIn
+                self.solve(sudokuIn,self.x,self.y,self.z,0,0)
             else:
                 self.x = oldX
                 self.y = oldY
@@ -118,3 +117,45 @@ class Solve:
                     self.z[a] =  "{0}{1}".format(self.z[a], sudokuIn[i][j])
                 j += 1
             i += 1
+
+        # nope. does bullshit...
+    def solve(self,sudoku,x,y,z,i,j):
+        if i == 8 and j == 8 and self.isValidSudoku(sudoku):
+            #print(sudoku)
+            self.solutions = "{0},{1}".format(self.solutions,sudoku)
+        if sudoku[i][j] == ' ':
+            for n in range (1,9):
+                a = 0
+                if i < 3:
+                    a = 0
+                elif i < 6:
+                    a = 1
+                else:
+                    a = 2
+                if j < 3:
+                    a += 0
+                elif j < 6:
+                    a += 3
+                else:
+                    a += 6
+                nStr = "{0}".format(n)
+                if nStr not in x[i] and nStr not in y[j] and nStr not in z[a]:
+                    sudokuCp = sudoku
+                    sudokuCp[i] = "{0}{1}{2}".format(sudokuCp[i][0:j-1],n,sudokuCp[i][j+1:])
+                    xCp = self.x
+                    yCp = self.y
+                    zCp = self.z
+                    xCp = "{0}{1}".format(xCp[i], n)
+                    yCp = "{0}{1}".format(yCp[j], n)
+                    zCp = "{0}{1}".format(zCp[a], n)
+                    print(sudokuCp)
+                    ni = i
+                    nj = j
+                    if nj == 8:
+                        nj = 8
+                        ni += 1
+                    else:
+                        nj += 1
+                    self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
+                else:
+                    return
