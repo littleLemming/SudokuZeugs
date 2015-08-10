@@ -121,16 +121,11 @@ class Solve:
         self.solve(self.sudokuIn,self.x,self.y,self.z,0,0)
 
     def solve(self,sudoku,x,y,z,i,j):
-        sudokuCp = []
-        xCp = []
-        yCp = []
-        zCp = []
         if i == 8 and j == 8 and sudoku[i][j] != ' ':
             print(sudoku)
             self.solutions.append(sudoku)
             return
         elif sudoku[i][j] == ' ':
-            a = 0
             if i < 3:
                 a = 0
             elif i < 6:
