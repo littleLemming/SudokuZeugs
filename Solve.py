@@ -20,12 +20,8 @@ class Solve:
             self.z = ["","","","","","","","",""]
             self.solutions = []
             self.setUp(sudokuIn)
-            #print(self.x)
-            #print(self.y)
-            #print(self.z)
             if self.isValidSudoku(sudokuIn):
                 self.sudokuIn = sudokuIn
-                #self.solve(sudokuIn,self.x,self.y,self.z,0,0)
             else:
                 raise ValueError("not a valid input")
         else:
@@ -130,13 +126,10 @@ class Solve:
         yCp = []
         zCp = []
         if i == 8 and j == 8 and sudoku[i][j] != ' ':
-            #print(sudoku[i][j])
-            #print("set solution")
             print(sudoku)
             self.solutions.append(sudoku)
             return
         elif sudoku[i][j] == ' ':
-            #print("leer")
             a = 0
             if i < 3:
                 a = 0
@@ -150,7 +143,6 @@ class Solve:
                 a += 3
             else:
                 a += 6
-            #print("i: {0}, j: {1}, a: {2}".format(i,j,a))
             for n in range(1,10):
                 nStr = "{0}".format(n)
                 if nStr not in x[i] and nStr not in y[j] and nStr not in z[a]:
@@ -162,7 +154,6 @@ class Solve:
                     yCp[j] = "{0}{1}".format(yCp[j], n)
                     zCp[a] = "{0}{1}".format(zCp[a], n)
                     sudokuCp[i] = "{0}{1}{2}".format(sudokuCp[i][0:j],n,sudokuCp[i][j+1:])
-                    #print(sudokuCp)
                     ni = i
                     nj = j
                     if nj == 8:
@@ -176,8 +167,6 @@ class Solve:
                         return
                     self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
         else:
-            #print(sudoku[i][j])
-            #print("i: {0}, j: {1}".format(i,j))
             sudokuCp = sudoku[:]
             xCp = x[:]
             yCp = y[:]
@@ -190,65 +179,4 @@ class Solve:
             else:
                 nj += 1
             self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
-
-"""
-        # nope. does bullshit...
-    def solve(self,sudoku,x,y,z,i,j):
-        #print(sudoku)
-        #print(sudoku[i][j])
-        #print("i: {0}, j: {1}".format(i,j))
-        if i == 8 and j == 8 and self.isValidSudoku(sudoku):
-            print(sudoku)
-            self.solutions = "{0},{1}".format(self.solutions,sudoku)
-        elif sudoku[i][j] == ' ':
-            a = 0
-            if i < 3:
-                a = 0
-            elif i < 6:
-                a = 1
-            else:
-                a = 2
-            if j < 3:
-                a += 0
-            elif j < 6:
-                a += 3
-            else:
-                a += 6
-            for n in range (1,9):
-                nStr = "{0}".format(n)
-                if nStr not in x[i] and nStr not in y[j] and nStr not in z[a]:
-                    sudokuCp = list(sudoku)
-                    sudokuCp[i] = "{0}{1}{2}".format(sudokuCp[i][0:j-1],n,sudokuCp[i][j+1:])
-                    xCp = self.x
-                    yCp = self.y
-                    zCp = self.z
-                    xCp = "{0}{1}".format(xCp[i], n)
-                    yCp = "{0}{1}".format(yCp[j], n)
-                    zCp = "{0}{1}".format(zCp[a], n)
-                    ni = i
-                    nj = j
-                    if nj == 8:
-                        nj = 0
-                        ni += 1
-                    else:
-                        nj += 1
-                    print("i:{0} ni:{1} j:{2} nj:{3}".format(i,ni,j,nj))
-                    self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
-                else:
-                    return
-        else:
-            sudokuCp = sudoku[:]
-            xCp = self.x
-            yCp = self.y
-            zCp = self.z
-            ni = i
-            nj = j
-            if nj == 8:
-                nj = 0
-                ni += 1
-            else:
-                nj += 1
-            print("i:{0} ni:{1} j:{2} nj:{3}".format(i,ni,j,nj))
-            self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
-"""
 
