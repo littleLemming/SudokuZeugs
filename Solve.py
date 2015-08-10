@@ -129,7 +129,7 @@ class Solve:
         xCp = []
         yCp = []
         zCp = []
-        if i == 8 and j == 8:
+        if i == 8 and j == 8 and sudoku[i][j] != ' ':
             #print(sudoku[i][j])
             #print("set solution")
             print(sudoku)
@@ -170,6 +170,10 @@ class Solve:
                         ni += 1
                     else:
                         nj += 1
+                    if i == 8 and j == 8:
+                        print(sudokuCp)
+                        self.solutions.append(sudokuCp)
+                        return
                     self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
         else:
             #print(sudoku[i][j])
