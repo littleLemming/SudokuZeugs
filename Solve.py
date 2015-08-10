@@ -121,6 +121,16 @@ class Solve:
     def solveCall(self):
         self.solve(self.sudokuIn,self.x,self.y,self.z,0,0)
 
+    def solve(self,sudoku,x,y,z,i,j):
+        if i == 8 and j == 8:
+            print("set solution")
+        elif sudoku[i][j] == ' ':
+            print("leer")
+        else:
+            print(sudoku[i][j])
+        self.solve(sudoku,x,y,z,i+1,j+1)
+
+"""
         # nope. does bullshit...
     def solve(self,sudoku,x,y,z,i,j):
         #print(sudoku)
@@ -146,7 +156,7 @@ class Solve:
             for n in range (1,9):
                 nStr = "{0}".format(n)
                 if nStr not in x[i] and nStr not in y[j] and nStr not in z[a]:
-                    sudokuCp = sudoku
+                    sudokuCp = list(sudoku)
                     sudokuCp[i] = "{0}{1}{2}".format(sudokuCp[i][0:j-1],n,sudokuCp[i][j+1:])
                     xCp = self.x
                     yCp = self.y
@@ -166,7 +176,7 @@ class Solve:
                 else:
                     return
         else:
-            sudokuCp = sudoku
+            sudokuCp = sudoku[:]
             xCp = self.x
             yCp = self.y
             zCp = self.z
@@ -179,4 +189,5 @@ class Solve:
                 nj += 1
             print("i:{0} ni:{1} j:{2} nj:{3}".format(i,ni,j,nj))
             self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
+"""
 
