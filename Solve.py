@@ -22,7 +22,7 @@ class Solve:
             self.setUp(sudokuIn)
             if self.isValidSudoku(sudokuIn):
                 self.sudokuIn = sudokuIn
-                self.solve(sudokuIn,self.x,self.y,self.z,0,0)
+                #self.solve(sudokuIn,self.x,self.y,self.z,0,0)
             else:
                 raise ValueError("not a valid input")
         else:
@@ -123,12 +123,31 @@ class Solve:
 
     def solve(self,sudoku,x,y,z,i,j):
         if i == 8 and j == 8:
+            print(sudoku[i][j])
             print("set solution")
+            return
         elif sudoku[i][j] == ' ':
             print("leer")
+            sudokuCp = sudoku[:]
+            ni = i
+            nj = j
+            if nj == 8:
+                nj = 0
+                ni += 1
+            else:
+                nj += 1
+            self.solve(sudokuCp,x,y,z,ni,nj)
         else:
             print(sudoku[i][j])
-        self.solve(sudoku,x,y,z,i+1,j+1)
+            sudokuCp = sudoku[:]
+            ni = i
+            nj = j
+            if nj == 8:
+                nj = 0
+                ni += 1
+            else:
+                nj += 1
+            self.solve(sudokuCp,x,y,z,ni,nj)
 
 """
         # nope. does bullshit...
