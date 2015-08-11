@@ -77,3 +77,6 @@ class Create:
 
 # ok - methoden machen die halt solve-methoden sind wie menschen das machen würden
 # damit das ganze dann nach schwierigkeit sortieren...
+
+# zeilen- und spalten-weise permutationen in 3-er blöcken ausprobieren!! von einem einfachen sudoku das schon besteht
+
