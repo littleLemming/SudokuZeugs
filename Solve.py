@@ -126,6 +126,7 @@ class Solve:
         self.solve(self.sudokuIn,self.x,self.y,self.z,0,0)
 
     def solve(self,sudoku,x,y,z,i,j):
+        #print(sudoku)
         if i == 8 and j == 8 and sudoku[i][j] != ' ':
             print(sudoku)
             self.solutions.append(sudoku)
@@ -220,3 +221,4 @@ class Solve:
             if m not in excluded_numbers:
                 # print(sudoku[:i])
                 self.solve_sudoku(sudoku[:i] + m + sudoku[i + 1:])
+
