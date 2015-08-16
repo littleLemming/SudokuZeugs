@@ -40,56 +40,49 @@ class Create:
             print(sudoku)
             self.solutions.append(sudoku)
             return
-        elif sudoku[i][j] == ' ':
-            if i < 3:
-                a = 0
-            elif i < 6:
-                a = 1
-            else:
-                a = 2
-            if j < 3:
-                a += 0
-            elif j < 6:
-                a += 3
-            else:
-                a += 6
-            # redo so that random
-            for n in range(1,10):
-                nStr = "{0}".format(n)
-                if nStr not in x[i] and nStr not in y[j] and nStr not in z[a]:
-                    sudokuCp = sudoku[:]
-                    xCp = x[:]
-                    yCp = y[:]
-                    zCp = z[:]
-                    xCp[i] = "{0}{1}".format(xCp[i], n)
-                    yCp[j] = "{0}{1}".format(yCp[j], n)
-                    zCp[a] = "{0}{1}".format(zCp[a], n)
-                    sudokuCp[i] = "{0}{1}{2}".format(sudokuCp[i][0:j],n,sudokuCp[i][j+1:])
-                    ni = i
-                    nj = j
-                    if nj == 8:
-                        nj = 0
-                        ni += 1
-                    else:
-                        nj += 1
-                    if i == 8 and j == 8:
-                        print(sudokuCp)
-                        self.solutions.append(sudokuCp)
-                        return
-                    self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
+        if i < 3:
+            a = 0
+        elif i < 6:
+            a = 1
         else:
-            sudokuCp = sudoku[:]
-            xCp = x[:]
-            yCp = y[:]
-            zCp = z[:]
-            ni = i
-            nj = j
-            if nj == 8:
-                nj = 0
-                ni += 1
-            else:
-                nj += 1
-            self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
+            a = 2
+        if j < 3:
+            a += 0
+        elif j < 6:
+            a += 3
+        else:
+            a += 6
+        list = ["","","","","","","","",""]
+        lCnt = 0
+        while lCnt < 9:
+            r = random.randint(1,9)
+            while r in list:
+                r = random.randint(1,9)
+            list[lCnt] = r
+        for n in list:
+            nStr = "{0}".format(n)
+            if nStr not in x[i] and nStr not in y[j] and nStr not in z[a]:
+                sudokuCp = sudoku[:]
+                xCp = x[:]
+                yCp = y[:]
+                zCp = z[:]
+                xCp[i] = "{0}{1}".format(xCp[i], n)
+                yCp[j] = "{0}{1}".format(yCp[j], n)
+                zCp[a] = "{0}{1}".format(zCp[a], n)
+                sudokuCp[i] = "{0}{1}{2}".format(sudokuCp[i][0:j],n,sudokuCp[i][j+1:])
+                ni = i
+                nj = j
+                if nj == 8:
+                    nj = 0
+                    ni += 1
+                else:
+                    nj += 1
+                if i == 8 and j == 8:
+                    print(sudokuCp)
+                    self.solutions.append(sudokuCp)
+                    return
+                self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
+
 
 """ mathias' code:
 <head>
