@@ -53,6 +53,7 @@ class Create:
                 a += 3
             else:
                 a += 6
+            # redo so that random
             for n in range(1,10):
                 nStr = "{0}".format(n)
                 if nStr not in x[i] and nStr not in y[j] and nStr not in z[a]:
