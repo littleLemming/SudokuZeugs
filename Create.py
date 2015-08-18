@@ -5,11 +5,11 @@ __author__ = 'twi'
 class Create:
 
     def __init__(self,writeToFile,file,solver):
-        self.sudoku = ['123456789', '456789123', '789123456', '214365897', '365897214', '897214365', '531642978', '642978531', '978531642']
+        self.sudoku = []
         self.writeToFile = writeToFile
         self.file = file
         self.solver = solver
-        self.createOneRandomCompleteSudoku(solver)
+        self.found = False
 
     def sudokuExists(self,sudoku):
         for i in self.sudokus:
@@ -28,60 +28,65 @@ class Create:
             x += 1
         return True
 
-    def createOneRandomCompleteSudoku(self):
-        return
-
     def callCreateOneRandomComplete(self):
         self.createOneRandomComplete(["         ","         ","         ","         ","         ","         ","         ","         ","         "],["","","","","","","","",""],["","","","","","","","",""],["","","","","","","","",""],0,0)
 
     def createOneRandomComplete(self,sudoku,x,y,z,i,j):
         #print(sudoku)
-        if i == 8 and j == 8 and sudoku[i][j] != ' ':
-            print(sudoku)
-            self.solutions.append(sudoku)
-            return
-        if i < 3:
-            a = 0
-        elif i < 6:
-            a = 1
-        else:
-            a = 2
-        if j < 3:
-            a += 0
-        elif j < 6:
-            a += 3
-        else:
-            a += 6
-        list = ["","","","","","","","",""]
-        lCnt = 0
-        while lCnt < 9:
-            r = random.randint(1,9)
-            while r in list:
+        if self.found == False:
+            if i == 8 and j == 8 and sudoku[i][j] != ' ':
+                print(sudoku)
+                self.sudoku = sudoku
+                self.found = True
+                return
+            if i < 3:
+                a = 0
+            elif i < 6:
+                a = 1
+            else:
+                a = 2
+            if j < 3:
+                a += 0
+            elif j < 6:
+                a += 3
+            else:
+                a += 6
+            list = ["","","","","","","","",""]
+            lCnt = 0
+            while lCnt < 9:
                 r = random.randint(1,9)
-            list[lCnt] = r
-        for n in list:
-            nStr = "{0}".format(n)
-            if nStr not in x[i] and nStr not in y[j] and nStr not in z[a]:
-                sudokuCp = sudoku[:]
-                xCp = x[:]
-                yCp = y[:]
-                zCp = z[:]
-                xCp[i] = "{0}{1}".format(xCp[i], n)
-                yCp[j] = "{0}{1}".format(yCp[j], n)
-                zCp[a] = "{0}{1}".format(zCp[a], n)
-                sudokuCp[i] = "{0}{1}{2}".format(sudokuCp[i][0:j],n,sudokuCp[i][j+1:])
-                ni = i
-                nj = j
-                if nj == 8:
-                    nj = 0
-                    ni += 1
-                else:
-                    nj += 1
-                if i == 8 and j == 8:
-                    print(sudokuCp)
-                    self.solutions.append(sudokuCp)
-                    return
-                self.solve(sudokuCp,xCp,yCp,zCp,ni,nj)
+                #print(r)
+                while r in list:
+                    #print(list)
+                    #print(r)
+                    r = random.randint(1,9)
+                list[lCnt] = r
+                lCnt += 1
+            #print(list)
+            for n in list:
+                nStr = "{0}".format(n)
+                if nStr not in x[i] and nStr not in y[j] and nStr not in z[a]:
+                    sudokuCp = sudoku[:]
+                    xCp = x[:]
+                    yCp = y[:]
+                    zCp = z[:]
+                    xCp[i] = "{0}{1}".format(xCp[i], n)
+                    yCp[j] = "{0}{1}".format(yCp[j], n)
+                    zCp[a] = "{0}{1}".format(zCp[a], n)
+                    sudokuCp[i] = "{0}{1}{2}".format(sudokuCp[i][0:j],n,sudokuCp[i][j+1:])
+                    ni = i
+                    nj = j
+                    if nj == 8:
+                        nj = 0
+                        ni += 1
+                    else:
+                        nj += 1
+                    if i == 8 and j == 8:
+                        print(sudokuCp)
+                        self.sudoku = sudoku
+                        self.found = True
+                        return
+                    self.createOneRandomComplete(sudokuCp,xCp,yCp,zCp,ni,nj)
 
 
 """ mathias' code:
