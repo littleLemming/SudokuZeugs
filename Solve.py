@@ -222,3 +222,4 @@ class Solve:
                 # print(sudoku[:i])
                 self.solve_sudoku(sudoku[:i] + m + sudoku[i + 1:])
 
+

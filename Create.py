@@ -88,6 +88,13 @@ class Create:
                         return
                     self.createOneRandomComplete(sudokuCp,xCp,yCp,zCp,ni,nj)
 
+    # alright - zur berechnung der schwierigkeit:
+    # wenn man direkt den schluss zieht, dann erhöht man die schwierigkeit um 1, wenn man zwei sachen kombinieren muss, um 2
+    # und so weiter
+    # das betrachtet man für jedes feld unabhängig ohne aber die jeweilig vorherigen ausgefüllt zu haben
+
+    # berechnen ob eindeutig lösbar - einfach in den solver werfen, wenn eine lösung, dann ja, sonst nein =D
+
 
 """ mathias' code:
 <head>
