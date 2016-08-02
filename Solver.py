@@ -8,6 +8,14 @@ class Solver:
     def __init__(self, sudoku):
         self.sudoku = sudoku
         self.valid(self.sudoku)
+        self.solutions = []
+
+    def finished(self,sudoku):
+        for row in sudoku:
+            row_tmp = list(filter((0).__ne__, sudoku[i]))
+                if len(row_tmp) != len(set(row_tmp)):
+                    return False
+        return True
 
     def valid(self, sudoku):
         if len(sudoku) != 9:
