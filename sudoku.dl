@@ -1,0 +1,19 @@
+% value Z at coordinates X, Y - defined in the pattern
+% block contains certain amount of coordinates - defined in the pattern
+% blocks amount of blocks - defined in the pattern
+% lines amount of lines - defined in the pattern
+% rows amount of rows - defined in the pattern
+% max_num is the highest number that can be contained in the sudoku - defined in the pattern
+
+% make sure everything is an int and build permutations
+max_num(X) :- #int(X). % X... which is the maximal number in sudoku (1 - max_num)
+lines(X) :- #int(X). % X... amount of lines (count starts at 0)
+rows(X) :- #int(X). % X... amount of rows (count starts at 0)
+blocks(X) :- #int(X). % X... amount of blocks (count starts at 0)
+block(A,X,Y) :- #int(A), #int(X), #int(Y). % A... block number, X... line, Y... row
+value(X,Y,Z) :- #int(X), #int(Y), #int(Z). % X... line, Y... row, Z... row
+
+% check for right value/coordinates
+%value(X,Y,Z), lines(X1), rows(Y1), max_num(Z1) :- X>=0, X<X1, Y>=0, Y<Y1, Z>0, Z<=Z1.
+
+
