@@ -11,9 +11,10 @@ lines(X) :- #int(X). % X... amount of lines (count starts at 0)
 rows(X) :- #int(X). % X... amount of rows (count starts at 0)
 blocks(X) :- #int(X). % X... amount of blocks (count starts at 0)
 block(A,X,Y) :- #int(A), #int(X), #int(Y). % A... block number, X... line, Y... row
-value(X,Y,Z) :- #int(X), #int(Y), #int(Z). % X... line, Y... row, Z... row
+value(X,Y,Z) :- #int(X), #int(Y), #int(Z), lines(X1), rows(Y1), max_num(Z1), 0<=X, X<X1, 0<=Y, Y<Y1, 0<Z, Z<=Z1. % X... line, Y... row, Z... row
 
-% check for right value/coordinates
-%value(X,Y,Z), lines(X1), rows(Y1), max_num(Z1) :- X>=0, X<X1, Y>=0, Y<Y1, Z>0, Z<=Z1.
-
+% make sure every value only once in row/line/block
+%:- value(X1,Y1,Z1), value(X2,Y2,Z2), #int(X1), #int(X2), #int(Y1), #int(Y2), #int(Z1), #int(Z2), X1=X2, Y1=Y2, Z1=Z2.
+%:- value(X1,Y1,Z1), value(X2,Y2,Z2), #int(X1), #int(X2), #int(Y1), #int(Y2), #int(Z1), #int(Z2), X1=X2, Y1!=Y2, Z1!=Z2.
+%:- value(X1,Y1,Z1), value(X2,Y2,Z2), #int(X1), #int(X2), #int(Y1), #int(Y2), #int(Z1), #int(Z2), X1!=X2, Y1=Y2, Z1!=Z2.
 
