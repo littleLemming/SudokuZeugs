@@ -8,7 +8,7 @@ class Solver:
             self.sudoku = sudoku
         if not self.is_valid(self.sudoku):
             raise Exception('InvalidSudoku', 'this sudoku is not valid - see error messages above')
-        self.line_len_sudoku = int(len(sudoku[0])/column_len_block * line_len_block)
+        self.line_len_sudoku = len(sudoku[0])
         self.column_len_sudoku = len(sudoku)
         self.line_len_block = line_len_block 
         self.column_len_block = column_len_block
@@ -41,23 +41,20 @@ class Solver:
             raise Exception('OutsideOfSudoku', 'the requested spot lies outside of the bounds of the sudoku')
         return [x[column_nr] for x in self.sudoku]
 
-    def get_block(self, line_nr, column_nr, regular_block):
-        if line_nr < 0 or line_nr >= self.column_len_sudoku or column_nr < 0 or column_nr >= self.line_len_sudoku:
+    def get_block(self, x, y, regular_block):
+        if x < 0 or x >= self.column_len_sudoku or y < 0 or y >= self.line_len_sudoku:
             raise Exception('OutsideOfSudoku', 'the requested spot lies outside of the bounds of the sudoku')
         # not yet implemented
         if not regular_block:
             return None
-        amnt_blocks_line = self.line_len_sudoku / self.line_len_block
-        amnt_blocks_column = self.column_len_sudoku / self.column_len_block
-        num_block_line = int(line_nr / amnt_blocks_line)
-        num_block_column = int(column_nr / amnt_blocks_column)
-        print(num_block_line)
-        print(num_block_column)
+        num_block_line = int(x / self.line_len_block)
+        num_block_column = int(y / self.column_len_block)
+        return ([x[num_block_line*self.line_len_block : num_block_line*self.line_len_block+self.line_len_block] for x in self.sudoku][num_block_column*self.column_len_block  : num_block_column*self.column_len_block +self.column_len_block])
 
 
 
 # some quick testing
 
 solver0 = Solver([[1,2,3,4,5,6,7,8,9],[2,3,4,5,6,7,8,9,1],[3,4,5,6,7,8,9,1,2],[4,5,6,7,8,9,1,2,3],[5,6,7,8,9,1,2,3,4],[6,7,8,9,1,2,3,4,5],[7,8,9,1,2,3,4,5,6],[8,9,1,2,3,4,5,6,7],[9,1,2,3,4,5,6,7,8]], None, 3, 3)
-solver1 = Solver([[1,2,3,4,5,6],[2,3,4,5,6,1],[3,4,5,6,1,2],[4,5,6,1,2,3],[5,6,1,2,3,4],[6,1,2,3,4,5]], None, 3, 2)
-solver1.get_block(0,0,True)
+solver1 = Solver([['a','b','c','d','e','f'],['g','h','i','j','k','l'],['m','n','o','p','q','r'],['s','t','u','v','x','y'],['z','A','B','C','D','E'],['F','G','H','I','J','K']], None, 3, 2)
+print(solver1.get_block(3,5,True))
