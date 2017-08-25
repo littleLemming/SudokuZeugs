@@ -42,7 +42,7 @@ class Solver:
         return [x[column_nr] for x in self.sudoku]
 
     def get_block(self, x, y, regular_block):
-        if x < 0 or x >= self.column_len_sudoku or y < 0 or y >= self.line_len_sudoku:
+        if y < 0 or y >= self.column_len_sudoku or x < 0 or x >= self.line_len_sudoku:
             raise Exception('OutsideOfSudoku', 'the requested spot lies outside of the bounds of the sudoku')
         # not yet implemented
         if not regular_block:
